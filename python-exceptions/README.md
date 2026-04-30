@@ -1,0 +1,2 @@
+Safe Print List Project
+Bu layihə Python-da siyahılar (lists) və istisnaların idarə edilməsi (Exception Handling) ilə işləmək üçün nəzərdə tutulmuşdur. Əsas məqsəd len() funksiyasından istifadə etmədən siyahı elementlərini təhlükəsiz şəkildə çap etməkdir.
