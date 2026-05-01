@@ -19,4 +19,4 @@ class Square:
         Args:
             size: Kvadratın ölçüsü (növ və dəyər yoxlanışı yoxdur).
         """
-        self.__size = size  # Private atribut təyin edilir
+        self.__size = size  
