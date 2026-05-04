@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Bu modul boş bir Rectangle klasını təyin edir."""
 class Rectangle:
-    '''Bos bir duzbucaqli klasi'''
+    """Düzbucaqlını təmsil edən boş bir klas."""
     pass
