@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """
-Bu modul list sinfindən miras alan MyList sinfini saxlayır.
+Bu modul MyList sinfini təyin edir.
 """
 
 
 class MyList(list):
-    """Siyahı üzərində xüsusi əməliyyatlar aparan sinif."""
+    """Siyahıdan (list) miras alan sinif."""
 
     def print_sorted(self):
-        """Siyahını artan sıra ilə çap edir, lakin orijinalı dəyişmir."""
+        """Siyahının elementlərini artan sıra ilə çap edir."""
         print(sorted(self))
