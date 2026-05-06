@@ -1,14 +1,17 @@
 #!/usr/bin/python3
-"""Bu modul destruktor metodu olan Rectangle klasını təyin edir."""
+"""Bu modul instansiya sayını izləyən Rectangle klasını təyin edir."""
 
 
 class Rectangle:
-    """Düzbucaqlını təmsil edən və silindikdə mesaj verən klas."""
+    """Düzbucaqlını təmsil edən və sayını izləyən klas."""
+
+    number_of_instances = 0
 
     def __init__(self, width=0, height=0):
-        """Yeni bir Rectangle instansiyası yaradır."""
+        """Yeni bir Rectangle yaradır."""
         self.width = width
         self.height = height
+        Rectangle.number_of_instances += 1
 
     @property
     def width(self):
@@ -17,7 +20,7 @@ class Rectangle:
 
     @width.setter
     def width(self, value):
-        """Eni təyin edir (yoxlama ilə)."""
+        """Eni təyin edir."""
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
         if value < 0:
@@ -31,7 +34,7 @@ class Rectangle:
 
     @height.setter
     def height(self, value):
-        """Hündürlüyü təyin edir (yoxlama ilə)."""
+        """Hündürlüyü təyin edir."""
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value < 0:
@@ -49,20 +52,16 @@ class Rectangle:
         return (self.__width * 2) + (self.__height * 2)
 
     def __str__(self):
-        """Düzbucaqlını '#' simvolları ilə vizuallaşdırır."""
+        """Düzbucaqlını '#' ilə çəkir."""
         if self.__width == 0 or self.__height == 0:
             return ""
-
-        rect_str = []
-        for i in range(self.__height):
-            rect_str.append("#" * self.__width)
-        return "\n".join(rect_str)
+        return "\n".join(["#" * self.__width for _ in range(self.__height)])
 
     def __repr__(self):
-        """Obyektin yenidən yaradılması üçün string təmsilini qaytarır."""
-        return "Rectangle({}, {})".format(self.__width, self.__height)
+        """Obyektin kod təmsilini qaytarır."""
+        return "Rectangle({:d}, {:d})".format(self.__width, self.__height)
 
     def __del__(self):
-        """Obyekt silindikdə 'Bye rectangle...' mesajını çap edir."""
-        print("Bye rectangle...")
+        """Obyekt silinəndə sayğacı azaldır."""
         Rectangle.number_of_instances -= 1
+        print("Bye rectangle...")
