@@ -61,8 +61,6 @@ class Rectangle:
         """Düzbucaqlını print_symbol ilə vizuallaşdırır."""
         if self.__width == 0 or self.__height == 0:
             return ""
-        
-        # print_symbol istənilən tip ola biləcəyi üçün onu string-ə çeviririk
         symbol = str(self.print_symbol)
         rect_lines = [symbol * self.__width for _ in range(self.__height)]
         return "\n".join(rect_lines)
