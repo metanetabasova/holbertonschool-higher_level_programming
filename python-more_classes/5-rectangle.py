@@ -1,20 +1,23 @@
 #!/usr/bin/python3
-'''Rectangle klasini teyin edir'''
+"""Bu modul destruktor metodu olan Rectangle klasını təyin edir."""
+
+
 class Rectangle:
-    '''Duzbucaqlini temsil eden klass'''
+    """Düzbucaqlını təmsil edən və silindikdə mesaj verən klas."""
+
     def __init__(self, width=0, height=0):
-        '''yeni bir rectangle instansiyasi yaradir'''
+        """Yeni bir Rectangle instansiyası yaradır."""
         self.width = width
         self.height = height
 
     @property
     def width(self):
-        '''eni geri qaytarir'''
+        """Eni geri qaytarır."""
         return self.__width
-    
+
     @width.setter
     def width(self, value):
-        '''eni teyin edir'''
+        """Eni təyin edir (yoxlama ilə)."""
         if not isinstance(value, int):
             raise TypeError("width must be an integer")
         if value < 0:
@@ -23,12 +26,12 @@ class Rectangle:
 
     @property
     def height(self):
-        '''hundurluyu geri qaytarir'''
+        """Hündürlüyü geri qaytarır."""
         return self.__height
 
     @height.setter
     def height(self, value):
-        '''hundurluyu teyin edir'''
+        """Hündürlüyü təyin edir (yoxlama ilə)."""
         if not isinstance(value, int):
             raise TypeError("height must be an integer")
         if value < 0:
@@ -36,7 +39,7 @@ class Rectangle:
         self.__height = value
 
     def area(self):
-        '''saheni qaytarir'''
+        """Sahəni qaytarır."""
         return self.__width * self.__height
 
     def perimeter(self):
@@ -46,19 +49,19 @@ class Rectangle:
         return (self.__width * 2) + (self.__height * 2)
 
     def __str__(self):
-        '''duzbucaqlini '#' simvollari ile cekir'''
+        """Düzbucaqlını '#' simvolları ilə vizuallaşdırır."""
         if self.__width == 0 or self.__height == 0:
             return ""
 
         rect_str = []
         for i in range(self.__height):
             rect_str.append("#" * self.__width)
-        return "/n".join(rect_str)
+        return "\n".join(rect_str)
 
     def __repr__(self):
-        '''obyektin yeniden yaradilmasi ucun string temsilini qaytarir'''
+        """Obyektin yenidən yaradılması üçün string təmsilini qaytarır."""
         return "Rectangle({}, {})".format(self.__width, self.__height)
 
     def __del__(self):
-        '''obyekt silindikde bu mesaji cap edir'''
+        """Obyekt silindikdə 'Bye rectangle...' mesajını çap edir."""
         print("Bye rectangle...")
