@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-'''bu modul obyektin sinifini yoxlayan funksiyadan ibaretdir.'''
+"""
+Obyektin sinfini yoxlayan modul.
+"""
 
 
 def is_same_class(obj, a_class):
-    '''obyektin tam olaraq gosterilen sinifin numunesi olub olmadigini yoxlayir'''
+    """Obyektin tam olaraq həmin sinif olub-olmadığını yoxlayır."""
     return type(obj) is a_class
