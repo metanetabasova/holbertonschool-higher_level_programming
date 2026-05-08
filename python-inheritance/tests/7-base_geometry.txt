@@ -1,3 +1,7 @@
+============================
+BaseGeometry sinfi üçün test
+============================
+
 >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 >>> bg = BaseGeometry()
 
@@ -9,7 +13,7 @@ Exception: area() is not implemented
 >>> bg.integer_validator("my_int", 10)
 >>> bg.integer_validator("width", 89)
 
->>> # Səhv tiplər (TypeError)
+>>> # Tip xətaları (TypeError)
 >>> bg.integer_validator("width", "89")
 Traceback (most recent call last):
     ...
@@ -25,7 +29,12 @@ Traceback (most recent call last):
     ...
 TypeError: age must be an integer
 
->>> # Mənfi və sıfır (ValueError)
+>>> bg.integer_validator("is_active", True)
+Traceback (most recent call last):
+    ...
+TypeError: is_active must be an integer
+
+>>> # Dəyər xətaları (ValueError)
 >>> bg.integer_validator("width", 0)
 Traceback (most recent call last):
     ...
