@@ -6,16 +6,11 @@ class BaseGeometry:
     """BaseGeometry sinfi."""
 
     def area(self):
-        """area() metodunu təyin edir."""
+        """Sahəni hesablayan metod."""
         raise Exception("area() is not implemented")
 
     def integer_validator(self, name, value):
-        """
-        Dəyəri tam ədəd olub-olmamasına görə yoxlayır.
-        
-        Qeyd: Tapşırıqda 'name' həmişə string fərz edilir, 
-        amma biz onu istifadə etməliyik.
-        """
+        """Dəyərin tam ədəd olub-olmadığını yoxlayır."""
         if type(value) is not int:
             raise TypeError("{} must be an integer".format(name))
         if value <= 0:
