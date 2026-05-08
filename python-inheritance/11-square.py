@@ -17,9 +17,9 @@ class Square(Rectangle):
         self.__size = size
 
     def area(self):
-        """Kvadratın sahəsini hesablayır və qaytarır."""
+        """Square sinfi üçün sahəni hesablayan metod."""
         return self.__size ** 2
 
     def __str__(self):
-        """Kvadratın [Square] <width>/<height> formatında təsvirini qaytarır."""
+        """Kvadratın təsvirini qaytarır."""
         return "[Square] {}/{}".format(self.__size, self.__size)
