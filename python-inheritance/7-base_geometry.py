@@ -1,21 +1,17 @@
 #!/usr/bin/python3
-'''
-BaseGeometry sinifine integer_validator metodunu elave eden modul.
-'''
+"""BaseGeometry sinfi üçün modul."""
 
 
 class BaseGeometry:
-    '''hendesi fiqurlar ucun'''
+    """BaseGeometry sinfi."""
 
     def area(self):
-        '''saheni hesablayir'''
+        """area metodunu təyin edir."""
         raise Exception("area() is not implemented")
 
     def integer_validator(self, name, value):
-        '''
-        deyerin musber tam eded oldugunu yoxlayir
-        '''
+        """Dəyəri tam ədəd olub-olmamasına görə yoxlayır."""
         if type(value) is not int:
             raise TypeError("{} must be an integer".format(name))
-        if value <=0:
+        if value <= 0:
             raise ValueError("{} must be greater than 0".format(name))
