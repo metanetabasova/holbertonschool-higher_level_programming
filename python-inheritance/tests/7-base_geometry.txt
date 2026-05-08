@@ -9,12 +9,29 @@ Exception: area() is not implemented
 >>> bg.integer_validator("my_int", 10)
 >>> bg.integer_validator("width", 89)
 
+>>> # Səhv tiplər (TypeError)
 >>> bg.integer_validator("width", "89")
 Traceback (most recent call last):
     ...
 TypeError: width must be an integer
 
+>>> bg.integer_validator("height", [1, 2, 3])
+Traceback (most recent call last):
+    ...
+TypeError: height must be an integer
+
+>>> bg.integer_validator("age", 10.5)
+Traceback (most recent call last):
+    ...
+TypeError: age must be an integer
+
+>>> # Mənfi və sıfır (ValueError)
 >>> bg.integer_validator("width", 0)
 Traceback (most recent call last):
     ...
 ValueError: width must be greater than 0
+
+>>> bg.integer_validator("distance", -5)
+Traceback (most recent call last):
+    ...
+ValueError: distance must be greater than 0
