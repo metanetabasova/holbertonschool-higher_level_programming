@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from abc import ABC, abstractmethod
+import math
 
 # Blueprint
 class Shape(ABC):
