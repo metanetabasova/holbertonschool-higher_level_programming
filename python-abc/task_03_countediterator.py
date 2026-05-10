@@ -26,15 +26,19 @@ class CountedIterator:
         return self
 
 # --- Test hissesi ---
-data = ["alma", "armud", "gilas"]
-counted_iter = CountedIterator(data)
+if __name__ == "__main__":
+    data = ["alma", "armud", "gilas"]
+    counted_iter = CountedIterator(data)
 
-print(next(counted_iter))
-print(next(counted_iter))
-print(f"Oxunmus element sayi: {CountedIterator(counted_iter.get_count())}")
+    try:
+        print(next(counted_iter))
+        print(next(counted_iter))
+        print(f"Cari say: {counted_iter.get_count()}")
 
-# Qalanlari dovrle oxuyaq
-for fruit in counted_iter:
-    print(fruit)
+        print(next(counted_iter))
+        print(f"Yekun say: {counted_iter.get_count()}")
 
-print(f"Yekun say: {counted_iter.get_count()}")
+        # Bu setir StopIteration xetasi verecek cunki element bitdi
+        print(next(counted_iter))
+    except StopIteration:
+        print("Iterasiya bitdi.")
