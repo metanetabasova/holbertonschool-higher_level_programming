@@ -1,0 +1,2 @@
+Python Input/Output Proyekti 
+Bu layihə Python-da faylların oxunması və standart çıxış (stdout) ilə işləmə prinsiplərini nümayiş etdirmək üçün hazırlanmışdır. Layihənin əsas fokusu resursların düzgün idarə edilməsi və UTF-8 kodlaşdırmasıdır.
