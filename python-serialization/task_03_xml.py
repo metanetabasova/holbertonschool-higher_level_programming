@@ -3,7 +3,7 @@
 Bu modul XML formatinda seriyalasdirma ve deserilizasiya 
 funksiyalarini ehtiva edir.
 '''
-import xml.etree.ElementTree as etree
+import xml.etree.ElementTree as ET
 
 
 def serialize_to_xml(dictionary, filename):
