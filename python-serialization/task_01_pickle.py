@@ -1,43 +1,45 @@
 #!/usr/bin/python3
-'''
+"""
 Bu modul pickle modulu vasitəsilə fərdi obyektlərin
 seriyalaşdırılması və deserilizasiyasını həyata keçirir.
-'''
+"""
 import pickle
 
 
 class CustomObject:
-    '''
-    Ferdi melumatlari saxlayan ve pickle destekleyen sinif.
-    '''
+    """
+    Fərdi məlumatları saxlayan və pickle dəstəkləyən sinif.
+    """
 
     def __init__(self, name, age, is_student):
-        '''Obyekti baslangicilasdirir.'''
+        """Obyekti başlanğıcılaşdırır."""
         self.name = name
         self.age = age
         self.is_student = is_student
 
     def display(self):
-        '''Obyektin atributlarini teleb olunan formatda cap edir.'''
+        """Obyektin atributlarını tələb olunan formatda çap edir."""
         print(f"Name: {self.name}")
         print(f"Age: {self.age}")
         print(f"Is Student: {self.is_student}")
 
     def serialize(self, filename):
-        '''
-        Cari obyekti pickle vasitesile fayla yazir
-        '''
+        """
+        Cari obyekti pickle vasitəsilə fayla yazır.
+        Xəta baş verərsə None qaytarır.
+        """
         try:
-            with opem(filename, 'wb') as f:
+            with open(filename, 'wb') as f:
                 pickle.dump(self, f)
         except (OSError, pickle.PickleError):
             return None
 
     @classmethod
     def deserialize(cls, filename):
-        '''
-        Fayldan obyekti yukleyir ve CustomObject instansiyasi qaytarir.
-        '''
+        """
+        Fayldan obyekti yükləyir və CustomObject instansiyası kimi qaytarır.
+        Fayl tapılmasa və ya korlanıbsa None qaytarır.
+        """
         try:
             with open(filename, 'rb') as f:
                 return pickle.load(f)
