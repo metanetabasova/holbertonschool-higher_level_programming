@@ -14,7 +14,7 @@ def convert_csv_to_json(csv_filename):
         # CSV faylini oxumaq ucun aciriq
         with open(csv_filename, mode='r', encoding='utf-8') as csv_file:
             # DictReader her setri avtomatik lugete cevirir
-            csv_reader = csv.DisctReader(csv_file)
+            csv_reader = csv.DictReader(csv_file)
 
             # Butun lugetleri bir siyahiya toplayiriq
             data_list = [row for row in csv_reader]
@@ -25,6 +25,6 @@ def convert_csv_to_json(csv_filename):
 
         return True
 
-    except (FileNotError, IOError, PermissionError):
+    except (FileNotFoundError, IOError, PermissionError):
         # Fay; tapilmadiqda ve ya diger giris-cixis xetalarinda False qaytarir
         return False
