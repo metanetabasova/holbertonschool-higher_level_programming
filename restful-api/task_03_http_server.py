@@ -41,7 +41,7 @@ def run_server():
     '''serveri 8000 portunda basladir.'''
     port = 8000
     server_address = ('', port)
-    httpd  http.server.HTTPServer(server_address, SimpleAPIHandler)
+    httpd = http.server.HTTPServer(server_address, SimpleAPIHandler)
     print(f"Server {port} portunda isleyir...")
     httpd.server_forever()
 
