@@ -43,7 +43,7 @@ def run_server():
     server_address = ('', port)
     httpd = http.server.HTTPServer(server_address, SimpleAPIHandler)
     print(f"Server {port} portunda isleyir...")
-    httpd.server_forever()
+    httpd.serve_forever()
 
 if __name__ == '__main__':
     run_server()
