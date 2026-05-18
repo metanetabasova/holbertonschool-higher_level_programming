@@ -1,6 +1,0 @@
-Bu layihə MySQL üzərində verilənlər bazalarının və cədvəllərin sıfırdan yaradılması, silinməsi və strukturunun idarə olunmasını əhatə edir.
-Layihə çərçivəsində cədvəllərə məlumatların daxil edilməsi, mövcud verilənlərin yenilənməsi (`UPDATE`) və silinməsi (`DELETE`) tapşırıqları
-yerinə yetirilmişdir.
-Həmçinin, məlumatların müəyyən şərtlərə görə süzgəcdən keçirilməsi (`WHERE`), böyükdən kiçiyə sıralanması (`ORDER BY`), eyni dəyərlərin
-qruplaşdırılaraq sayılması (`GROUP BY`) və riyazi ortalamasının tapılması (`AVG`) kimi aqreqat funksiyaların tətbiqi öyrənilmişdir. Son
-olaraq, verilənlər bazası istifadəçilərinin giriş hüquqlarının və icazələrinin (`SHOW GRANTS`) yoxlanılması təmin edilmişdir.
