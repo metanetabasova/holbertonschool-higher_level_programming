@@ -1,0 +1,1 @@
+Bu layihədə Python proqramlaşdırma dili və MySQLdb modulu vasitəsilə verilənlər bazası ilə əlaqə qurulmuşdur. Yazılmış skript verilənlər bazasındakı məlumatları oxumaq və onları müəyyən nizamla sıralamaq funksiyasını yerinə yetirir.
