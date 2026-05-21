@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-'''
-n herfi ile baslayan butun statlari id-ye gore
-artan sirada siyahilayan skript
-'''
+"""
+A script that lists all states with a name starting with N
+from the database hbtn_0e_0_usa.
+"""
 import sys
 import MySQLdb
 
@@ -37,3 +37,4 @@ if __name__ == "__main__":
     # Baglantilari ve cursor-u baglayiriq
     cursor.close()
     db.close()
+    
