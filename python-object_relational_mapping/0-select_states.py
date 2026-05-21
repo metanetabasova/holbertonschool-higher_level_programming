@@ -3,7 +3,7 @@
 id-ye gore artan siralayib siyahilayan skript
 '''
 import sys
-import MyDQLdb
+import MySQLdb
 
 if __name__ == "__main__":
     # konsoldan oturulen arqumentleri deyisenkere menimsedirik
@@ -12,7 +12,7 @@ if __name__ == "__main__":
     db_name = sys.argv[3]
 
     # Verilenler bazasina qosuluruq
-    ddb = MySQLdb.connect(
+    db = MySQLdb.connect(
         host="localhost",
         port=3306,
         user=mysql_username,
