@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-ne herbi ile baslayan butun statlari id-ye gore
+n herfi ile baslayan butun statlari id-ye gore
 artan sirada siyahilayan skript
 '''
 import sys
@@ -37,4 +37,3 @@ if __name__ == "__main__":
     # Baglantilari ve cursor-u baglayiriq
     cursor.close()
     db.close()
-    
