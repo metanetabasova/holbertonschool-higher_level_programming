@@ -39,4 +39,3 @@ if __name__ == "__main__":
     # Bağlantıları və cursor-u bağlayırıq
     cursor.close()
     db.close()
-    
