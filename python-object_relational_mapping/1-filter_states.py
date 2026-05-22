@@ -1,41 +1,46 @@
 #!/usr/bin/python3
 """
-MySQL verilənlər bazasından (hbtn_0e_0_usa) adı 'N' hərfi ilə
-başlayan bütün ştatları id-yə görə artan sırada siyahılayan skript.
+Bu skript hbtn_0e_0_usa verilənlər bazasından adı 'N' hərfi ilə
+başlayan bütün ştatları ştatın ID-sinə görə artan sırada sıralayaraq siyahılayır.
 """
 import sys
 import MySQLdb
 
 if __name__ == "__main__":
-    # Konsoldan ötürülən arqumentləri dəyişənlərə mənimsədirik
+    # Əmr sətrindən arqumentlərin götürülməsi
     mysql_username = sys.argv[1]
     mysql_password = sys.argv[2]
-    db_name = sys.argv[3]
+    database_name = sys.argv[3]
 
-    # Verilənlər bazasına qoşuluruq (localhost, port 3306)
+    # MySQL serverinə qoşulma
     db = MySQLdb.connect(
         host="localhost",
         port=3306,
         user=mysql_username,
         passwd=mysql_password,
-        db=db_name
+        db=database_name
     )
 
-    # Sorğuları icra etmək üçün cursor (göstərici) yaradırıq
+    # Sorğuları icra etmək üçün kursorun (cursor) yaradılması
     cursor = db.cursor()
 
-    # SQL sorğusunu icra edirik (Yalnız adı 'N' ilə başlayanlar və id-yə görə ASC sıralama)
-    # MySQL-də LIKE operatoru böyük/kiçik hərfə həssas (case-insensitive) ola bilər,
-    # lakin tapşırıq binary və ya birbaşa 'N%' tələb etdiyi üçün bu format tam doğrudur.
-    cursor.execute("SELECT * FROM states WHERE name LIKE BINARY 'N%' ORDER BY id ASC")
+    # SQL sorğusunun hazırlanması və icra edilməsi
+    # BINARY istifadə etməklə 'N' hərfinin böyük hərf olmasına tam əmin oluruq
+    query = """
+        SELECT id, name 
+        FROM states 
+        WHERE name LIKE BINARY 'N%' 
+        ORDER BY id ASC
+    """
+    cursor.execute(query)
 
-    # Bütün uyğun nəticələri əldə edirik
-    query_rows = cursor.fetchall()
+    # Bütün nəticələrin əldə edilməsi
+    rows = cursor.fetchall()
 
-    # Nəticələri ekrana çıxarırıq
-    for row in query_rows:
+    # Nəticələrin tələb olunan formatda ekrana çıxarılması
+    for row in rows:
         print(row)
 
-    # Bağlantıları və cursor-u bağlayırıq
+    # Kursorun və verilənlər bazası əlaqəsinin bağlanması
     cursor.close()
     db.close()
