@@ -1,33 +1,30 @@
 #!/usr/bin/python3
 """
 Lists all states with a name starting with N (upper N)
-from the database hbtn_0e_0_usa
+from the database specified by args.
 """
-import sys
 import MySQLdb
+import sys
 
-if __name__ == "__main__":
-    # Verilənlər bazasına qoşulma
-    db = MySQLdb.connect(
+if __name__ == '__main__':
+    # Get arguments: username, password, db name
+    uname, pwd, db = sys.argv[1], sys.argv[2], sys.argv[3]
+
+    # Connect to MySQL server
+    conn = MySQLdb.connect(
         host="localhost",
         port=3306,
-        user=sys.argv[1],
-        passwd=sys.argv[2],
-        db=sys.argv[3]
+        user=uname,
+        passwd=pwd,
+        db=db
     )
-    
-    cursor = db.cursor()
-    
-    # Checker-in tam olaraq axtardığı SQL sintaksisi budur.
-    # %s işarəsini LIKE 'N%' içində deyil, birbaşa string bərabərliyində yoxlayır.
-    # Amma biz bura parametr göndərəcəyik.
-    cursor.execute("SELECT * FROM states WHERE name LIKE BINARY 'N%' ORDER BY id ASC")
-    
-    rows = cursor.fetchall()
-    
+    cur = conn.cursor()
+    # Execute query to filter states starting with 'N', sorted by id
+    cur.execute(
+        "SELECT * FROM states WHERE name LIKE BINARY 'N%' ORDER BY id ASC"
+    )
+    rows = cur.fetchall()
     for row in rows:
         print(row)
-        
-    # Kursor və bazanı bağlayırıq
-    cursor.close()
-    db.close()
+    cur.close()
+    conn.close()
