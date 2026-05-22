@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 Bu skript hbtn_0e_0_usa verilənlər bazasından adı 'N' hərfi ilə
-başlayan bütün ştatları ştatın ID-sinə görə artan sırada sıralayaraq siyahılayır.
+başlayan bütün ştatları təhlükəsiz şəkildə siyahılayır.
 """
 import sys
 import MySQLdb
@@ -21,26 +21,25 @@ if __name__ == "__main__":
         db=database_name
     )
 
-    # Sorğuları icra etmək üçün kursorun (cursor) yaradılması
     cursor = db.cursor()
 
-    # SQL sorğusunun hazırlanması və icra edilməsi
-    # BINARY istifadə etməklə 'N' hərfinin böyük hərf olmasına tam əmin oluruq
+    # ÇOX VACİB: Sorğunu parametrləşdirilmiş (Safe from SQL injection) edirik.
+    # %s Python-un formatlaması deyil, MySQLdb-nin parametr yer tutucusudur.
     query = """
         SELECT id, name 
         FROM states 
-        WHERE name LIKE BINARY 'N%' 
+        WHERE name LIKE BINARY %s 
         ORDER BY id ASC
     """
-    cursor.execute(query)
+    
+    # Arqumenti tuple (korfej) şəklində execute funksiyasına ötürürük
+    cursor.execute(query, ('N%',))
 
-    # Bütün nəticələrin əldə edilməsi
+    # Nəticələrin əldə edilməsi və çapı
     rows = cursor.fetchall()
-
-    # Nəticələrin tələb olunan formatda ekrana çıxarılması
     for row in rows:
         print(row)
 
-    # Kursorun və verilənlər bazası əlaqəsinin bağlanması
+    # Bağlanışlar
     cursor.close()
     db.close()
