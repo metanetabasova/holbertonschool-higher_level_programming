@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """
-Contains the class definition of State and an instance Base = declarative_base()
+Defines the State class and Base for SQLAlchemy ORM mapping.
 """
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import declarative_base
 
@@ -9,7 +10,7 @@ Base = declarative_base()
 
 
 class State(Base):
-    """State class that links to the MySQL table states"""
+    """State model mapped to the 'states' table."""
     __tablename__ = "states"
 
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
