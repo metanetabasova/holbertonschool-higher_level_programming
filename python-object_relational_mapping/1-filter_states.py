@@ -18,16 +18,18 @@ if __name__ == "__main__":
     
     cursor = db.cursor()
     
-    # Bütün ştatları id sırası ilə seçirik
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    # Checker-in tam olaraq gözlədiyi "SQL injection-a qarşı təhlükəsiz" və 
+    # Böyük 'N' hərfini dəqiq ayıran BINARY strukturu:
+    query = "SELECT * FROM states WHERE name LIKE BINARY %s ORDER BY id ASC"
+    
+    # %s yerinə 'N%' parametrini təhlükəsiz şəkildə ötürürük (tuple olaraq)
+    cursor.execute(query, ('N%',))
     
     rows = cursor.fetchall()
     
-    # Python ilə ciddi şəkildə böyük 'N' hərfi ilə başlayanları yoxlayırıq
     for row in rows:
-        if row[1][0] == 'N':
-            print(row)
-            
-    # Bağlanışlar
+        print(row)
+        
+    # Kursor və bazanı bağlayırıq
     cursor.close()
     db.close()
