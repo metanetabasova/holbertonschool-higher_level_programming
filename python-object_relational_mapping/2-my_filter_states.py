@@ -17,7 +17,8 @@ if __name__ == "__main__":
     )
     cur = conn.cursor()
 
-    # Task tələb edir ki, format istifadə edilsin (realda təhlükəli, amma task üçün lazımdır)
+    # tək dırnaq problemini (SQL injection və s.) önləmək üçün
+    state_name = state_name.replace("'", "''")
     query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name)
     cur.execute(query)
     rows = cur.fetchall()
