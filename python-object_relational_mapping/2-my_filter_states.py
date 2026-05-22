@@ -7,6 +7,7 @@ import sys
 
 if __name__ == "__main__":
     uname, pwd, db, state_name = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
+
     conn = MySQLdb.connect(
         host="localhost",
         port=3306,
@@ -15,7 +16,8 @@ if __name__ == "__main__":
         db=db
     )
     cur = conn.cursor()
-    # Using string .format for the SQL query as requested (not safe for real-world use)
+
+    # Task tələb edir ki, format istifadə edilsin (realda təhlükəli, amma task üçün lazımdır)
     query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name)
     cur.execute(query)
     rows = cur.fetchall()
