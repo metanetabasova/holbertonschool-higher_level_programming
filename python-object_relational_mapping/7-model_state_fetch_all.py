@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Lists all State objects from the database hbtn_0e_6_usa.
+Lists all State objects from the database.
 
 Usage:
     ./7-model_state_fetch_all.py <mysql_username> <mysql_password> <database_name>
@@ -14,6 +14,7 @@ from model_state import Base, State
 
 
 def main():
+    """Main entry point."""
     if len(sys.argv) != 4:
         return
 
@@ -21,16 +22,13 @@ def main():
     password = sys.argv[2]
     dbname = sys.argv[3]
 
-    engine = create_engine(
-        "mysql+mysqldb://{}:{}@localhost:3306/{}".format(user, password, dbname),
-        pool_pre_ping=True
-    )
+    url = "mysql+mysqldb://{}:{}@localhost:3306/{}".format(user, password, dbname)
+    engine = create_engine(url, pool_pre_ping=True)
 
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    states = session.query(State).order_by(State.id.asc()).all()
-    for state in states:
+    for state in session.query(State).order_by(State.id).all():
         print("{}: {}".format(state.id, state.name))
 
     session.close()
