@@ -1,17 +1,33 @@
 #!/usr/bin/python3
-"""Lists all values in the states table where name matches the argument."""
-import MySQLdb
+"""
+This module connects to a MySQL database and displays all values
+in the states table of hbtn_0e_0_usa where the name matches the argument.
+It takes 4 arguments: username, password, database name, and state name.
+"""
 import sys
+import MySQLdb
 
 if __name__ == "__main__":
-    uname, pwd, db, state_name = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
-    conn = MySQLdb.connect(host="localhost", port=3306, user=uname, passwd=pwd, db=db)
-    cur = conn.cursor()
-    # .format() ilə, tək dırnaq ikiləşdirilərək escape edilir
-    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(state_name.replace("'", "''"))
-    cur.execute(query)
-    rows = cur.fetchall()
+    # Connect to the MySQL server
+    db = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3]
+    )
+
+    cursor = db.cursor()
+
+    # Format the query strictly based on the task requirements using .format()
+    query = "SELECT * FROM states WHERE name LIKE BINARY '{}' ORDER BY id ASC"
+    cursor.execute(query.format(sys.argv[4]))
+
+    # Fetch and print the results
+    rows = cursor.fetchall()
     for row in rows:
         print(row)
-    cur.close()
-    conn.close()
+
+    # Close connection resources
+    cursor.close()
+    db.close()
