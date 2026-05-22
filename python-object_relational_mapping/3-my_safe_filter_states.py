@@ -1,24 +1,40 @@
 #!/usr/bin/python3
 """
-Lists all values in the states table where name matches the argument, safe from SQL injection.
+Module that takes in arguments and displays all values in the states table
+of hbtn_0e_0_usa where name matches the argument (safe from MySQL injection).
 """
+
 import MySQLdb
 import sys
 
+
 if __name__ == "__main__":
-    uname, pwd, db, state_name = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
-    conn = MySQLdb.connect(
+    username = sys.argv[1]
+    password = sys.argv[2]
+    database = sys.argv[3]
+    state_name = sys.argv[4]
+
+    # Connect to MySQL server
+    db = MySQLdb.connect(
         host="localhost",
         port=3306,
-        user=uname,
-        passwd=pwd,
-        db=db
+        user=username,
+        passwd=password,
+        db=database
     )
-    cur = conn.cursor()
+
+    # Create cursor object
+    cursor = db.cursor()
+
+    # Use parameterized query to prevent SQL injection
     query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
-    cur.execute(query, (state_name,))
-    rows = cur.fetchall()
-    for row in rows:
-        print(row)
-    cur.close()
-    conn.close()
+    cursor.execute(query, (state_name,))
+
+    # Fetch and display results
+    states = cursor.fetchall()
+    for state in states:
+        print(state)
+
+    # Close cursor and connection
+    cursor.close()
+    db.close()
