@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 """
-Lists all values in the states table where name matches the argument, safe from SQL injection.
+Lists all values where name matches the argument, safe from MySQL injection.
 """
 import MySQLdb
 import sys
 
 if __name__ == "__main__":
     uname, pwd, db, state_name = sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4]
-
     conn = MySQLdb.connect(
         host="localhost",
         port=3306,
