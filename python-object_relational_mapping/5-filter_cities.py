@@ -1,14 +1,19 @@
 #!/usr/bin/python3
 """
-Lists all cities of a given state from the database hbtn_0e_4_usa.
-Usage: ./4-cities_by_state.py <mysql_username> <mysql_password>
-                               <database_name> <state_name>
+Takes 4 arguments: mysql username, mysql password, database name and state name,
+then lists all cities of that state from the database (SQL injection safe).
+
+Usage:
+    ./5-filter_cities.py <mysql_username> <mysql_password> <database_name> <state_name>
 """
-import MySQLdb
 import sys
+import MySQLdb
 
 
-if __name__ == "__main__":
+def main():
+    if len(sys.argv) != 5:
+        sys.exit(1)
+
     username = sys.argv[1]
     password = sys.argv[2]
     database = sys.argv[3]
@@ -21,12 +26,12 @@ if __name__ == "__main__":
         passwd=password,
         db=database
     )
+    cur = db.cursor()
 
-    cursor = db.cursor()
-
-    cursor.execute(
+    # Only one execute() call, parameterized => SQL injection safe
+    cur.execute(
         """
-        SELECT cities.id, cities.name
+        SELECT cities.name
         FROM cities
         JOIN states ON cities.state_id = states.id
         WHERE states.name = %s
@@ -35,9 +40,12 @@ if __name__ == "__main__":
         (state_name,)
     )
 
-    rows = cursor.fetchall()
-    for row in rows:
-        print(row)
+    rows = cur.fetchall()
+    print(", ".join([row[0] for row in rows]))
 
-    cursor.close()
+    cur.close()
     db.close()
+
+
+if __name__ == "__main__":
+    main()
