@@ -38,4 +38,3 @@ if __name__ == "__main__":
         print("{}: ({}) {}".format(state_name, city_id, city_name))
 
     session.close()
-ch,
