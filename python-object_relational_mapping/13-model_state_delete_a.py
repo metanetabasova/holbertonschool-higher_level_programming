@@ -13,17 +13,18 @@ if __name__ == "__main__":
     password = sys.argv[2]
     dbname = sys.argv[3]
 
-    url = "mysql+mysqldb://{}:{}@localhost:3306/{}".format(
-        username, password, dbname
+    engine = create_engine(
+        "mysql+mysqldb://{}:{}@localhost:3306/{}".format(
+            username, password, dbname
+        ),
+        pool_pre_ping=True,
     )
-    engine = create_engine(url, pool_pre_ping=True)
 
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    states_to_delete = session.query(State).filter(State.name.like("%a%")).all()
-    for state in states_to_delete:
-        session.delete(state)
-
+    session.query(State).filter(State.name.like("%a%")).delete(
+        synchronize_session=False
+    )
     session.commit()
     session.close()
