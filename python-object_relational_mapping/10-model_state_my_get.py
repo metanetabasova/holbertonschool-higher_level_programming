@@ -1,37 +1,42 @@
 #!/usr/bin/python3
-"""
-Print the State id for the State name passed as argument.
-
-Usage:
-    ./10-model_state_my_get.py <mysql_username> <mysql_password> <database_name> <state_name>
-"""
+"""Script that prints State object with name passed as argument."""
 import sys
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
 from model_state import Base, State
 
 
 if __name__ == "__main__":
-    username = sys.argv[1]
-    password = sys.argv[2]
-    dbname = sys.argv[3]
+    if len(sys.argv) != 5:
+        print("Usage: ./3-my_safe_filter_states.py <user> <password> <db> <state>")
+        sys.exit(1)
+
+    mysql_user = sys.argv[1]
+    mysql_password = sys.argv[2]
+    database_name = sys.argv[3]
     state_name = sys.argv[4]
 
-    url = "mysql+mysqldb://{}:{}@localhost:3306/{}".format(
-        username, password, dbname
+    engine = create_engine(
+        'mysql+mysqldb://{}:{}@localhost:3306/{}'.format(
+            mysql_user,
+            mysql_password,
+            database_name
+        ),
+        pool_pre_ping=True
     )
-    engine = create_engine(url, pool_pre_ping=True)
+
+    Base.metadata.create_all(engine)
 
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    state = session.query(State).filter(State.name == state_name).first()
+    state = session.query(State).filter(
+        State.name == state_name
+    ).first()
 
     if state is None:
         print("Not found")
     else:
-        print(state.id)
+        print("{}: {}".format(state.id, state.name))
 
     session.close()
