@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """
-Prints the first State object from the database.
+Print the first State object from the database.
 
-Usage: ./8-model_state_fetch_first.py <mysql_username> <mysql_password> <database_name>
+Usage:
+    ./8-model_state_fetch_first.py <mysql_username> <mysql_password> <database_name>
 """
 import sys
 
