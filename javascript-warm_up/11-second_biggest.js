@@ -5,7 +5,7 @@ if (args.length < 2) {
   console.log(0);
 } else {
   const uniqueArgs = [...new Set(args)];
-  uniqueArgs.sort((a,b) => b - a);
+  uniqueArgs.sort((a, b) => b - a);
 
   if (uniqueArgs.length < 2) {
     console.log(0);
