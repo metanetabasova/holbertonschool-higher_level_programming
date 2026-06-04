@@ -1,7 +1,7 @@
 #!/usr/bin/node
 const size = parseInt(process.argv[2], 10);
 
-if(Number.isNaN(size)) {
+if (Number.isNaN(size)) {
   console.log('Missing size');
 } else {
   const row = 'X'.repeat(size);
