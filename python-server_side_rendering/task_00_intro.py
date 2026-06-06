@@ -1,72 +1,53 @@
 #!/usr/bin/python3
 import os
 
-def generate_invitations(template_path, attendees_path, output_dir):
-    if not isinstance(template_path, str) or not isinstance(attendees_path, str) or not isinstance(output_dir, str):
-        print("Invalid input types.")
+def generate_invitations(template, attendees):
+    # 1. Giriş Tiplərinin Yoxlanılması (Invalid Input Types)
+    if not isinstance(template, str):
+        print("Error: template must be a string.")
+        return
+        
+    if not isinstance(attendees, list) or not all(isinstance(a, dict) for a in attendees):
+        print("Error: attendees must be a list of dictionaries.")
         return
 
-    if not os.path.exists(template_path):
-        print(f"Template file not found: {template_path}")
+    # 2. Boş Girişlərin Yoxlanılması (Empty Template & Empty List)
+    if not template.strip():
+        print("Template is empty, no output files generated.")
         return
 
-    if not os.path.exists(attendees_path):
-        print(f"Attendees file not found: {attendees_path}")
+    if not attendees:
+        print("No data provided, no output files generated.")
         return
 
-    try:
-        with open(template_path, 'r', encoding='utf-8') as f:
-            template_content = f.read()
-
-        if not template_content.strip():
-            print("Template is empty.")
-            return
-
-        with open(attendees_path, 'r', encoding='utf-8') as f:
-            attendees_content = f.read()
-
-        import json
+    # 3. İştirakçıların Emal Edilməsi və Faylların Yaradılması
+    for index, attendee in enumerate(attendees, start=1):
         try:
-            data = json.loads(attendees_content)
-            attendees = data.get("attendees", []) if isinstance(data, dict) else data
-        except Exception:
-            import ast
-            try:
-                data = ast.literal_eval(attendees_content)
-                attendees = data.get("attendees", []) if isinstance(data, dict) else data
-            except Exception:
-                print("Invalid attendees format.")
-                return
+            # Şablonun nüsxəsini çıxarırıq
+            invitation_text = template
 
-        if not isinstance(attendees, list):
-            print("Attendees should be a list.")
-            return
+            # Əvəzlənəcək bütün placeholder-lərin siyahısı
+            placeholders = ["name", "event_title", "event_date", "event_location"]
 
-        if not attendees:
-            print("No attendees found.")
-            return
+            for key in placeholders:
+                # Əgər açar yoxdursa və ya dəyəri None-dırsa, "N/A" ilə əvəzlənir
+                val = attendee.get(key)
+                if val is None:
+                    val = "N/A"
+                
+                # Şablondakı yerliyi ({name}, {event_title} və s.) real dəyərlə dəyişirik
+                invitation_text = invitation_text.replace(f"{{{key}}}", str(val))
 
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
+            # Çıxış faylının adı (output_1.txt, output_2.txt və s.)
+            output_filename = f"output_{index}.txt"
 
-        for attendee in attendees:
-            if not isinstance(attendee, dict) or "name" not in attendee or "event" not in attendee:
-                print("Invalid attendee format or missing data.")
+            # Təhlükəsizlik: os.path.exists ilə faylın öncədən mövcudluğunu yoxlayırıq
+            if os.path.exists(output_filename):
                 continue
 
-            name = attendee.get("name", "Guest")
-            event = attendee.get("event", "Event")
+            # Faylın daxilinə yazılması
+            with open(output_filename, 'w', encoding='utf-8') as file:
+                file.write(invitation_text)
 
-            invitation_text = template_content.replace("{name}", name).replace("{event}", event)
-
-            file_name = f"{name.replace(' ', '_')}_invitation.txt"
-            output_file_path = os.path.join(output_dir, file_name)
-
-            if os.path.exists(output_file_path):
-                continue
-
-            with open(output_file_path, 'w', encoding='utf-8') as f:
-                f.write(invitation_text)
-
-    except Exception as e:
-        print(f"An error occurred: {e}")
+        except Exception as e:
+            print(f"An error occurred while processing attendee {index}: {e}")
