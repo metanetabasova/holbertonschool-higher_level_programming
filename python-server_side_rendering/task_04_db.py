@@ -34,19 +34,15 @@ def read_csv():
 def read_sql(product_id=None):
     if not os.path.exists('products.db'):
         return []
-    
     products = []
     try:
         conn = sqlite3.connect('products.db')
-        # Sətirləri dictionary formatına yaxın oxumaq üçün row_factory təyin edirik
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
-        
         if product_id is not None:
             cursor.execute("SELECT id, name, category, price FROM Products WHERE id = ?", (product_id,))
         else:
             cursor.execute("SELECT id, name, category, price FROM Products")
-            
         rows = cursor.fetchall()
         for row in rows:
             products.append({
@@ -57,7 +53,6 @@ def read_sql(product_id=None):
             })
         conn.close()
     except sqlite3.Error:
-        # Verilənlər bazası xətası baş verərsə boş siyahı qaytarırıq
         return []
     return products
 
@@ -66,11 +61,9 @@ def show_products():
     source = request.args.get('source')
     product_id = request.args.get('id')
 
-    # 1. Şərt: Source parametrinin düzgünlüyü yoxlanılır (json, csv, sql)
     if source not in ['json', 'csv', 'sql']:
         return render_template('product_display.html', error="Wrong source")
 
-    # SQL mənbəyi olduqda sorğunu birbaşa verilənlər bazası daxilində filtrləmək daha optimaldır
     if source == 'sql':
         if product_id is not None:
             try:
@@ -80,26 +73,19 @@ def show_products():
                 return render_template('product_display.html', error="Product not found")
         else:
             data = read_sql()
-            
-        # Əgər id verilibsə və sql daxilindən heç bir data qayıtmayıbsa
         if product_id is not None and not data:
             return render_template('product_display.html', error="Product not found")
-
-    # JSON və ya CSV mənbələri üçün mövcud məntiq işləyir
     else:
         if source == 'json':
             data = read_json()
         else:
             data = read_csv()
-
         if product_id is not None:
             try:
                 target_id = int(product_id)
                 filtered_data = [p for p in data if p["id"] == target_id]
-                
                 if not filtered_data:
                     return render_template('product_display.html', error="Product not found")
-                
                 data = filtered_data
             except ValueError:
                 return render_template('product_display.html', error="Product not found")
