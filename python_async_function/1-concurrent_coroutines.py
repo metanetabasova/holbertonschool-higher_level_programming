@@ -1,26 +1,22 @@
 #!/usr/bin/env python3
 """
-Bu modul verilmis sayda tesadufi gozleme tapsiriqlarini
-asinxron sekilde icra edir ve neticeleri siralo sekilde qaytarir.
+Bu modul verilmiş sayda təsadüfi gözləmə tapşırıqlarını
+asinxron şəkildə icra edir və nəticələri sıralı şəkildə qaytarır.
 """
 import asyncio
 from typing import List
-
 
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
     """
-    wait_random funksiyasini n defe eyni vaxtda (concurrently) cagirir.
-    Gozleme muddetlerini (delays) artan sira ile siyahi seklinde qaytarir
+    wait_random funksiyasını n dəfə eyni vaxtda çağırır.
+    Gözləmə müddətlərini artan sıra ilə siyahı şəklində qaytarır.
     """
-    # n defe wait_random tapsirigi yaradiriq
     tasks = [wait_random(max_delay) for _ in range(n)]
+    delays = []
 
-    delays =[]
-
-    # as_completed tapsiriglari bitme tezliyjne gore qaytarir
     for task in asyncio.as_completed(tasks):
         delay = await task
         delays.append(delay)
