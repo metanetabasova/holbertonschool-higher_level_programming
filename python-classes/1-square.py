@@ -1,22 +1,10 @@
-#!/usr/bin/python3
-"""
-Bu modul kvadratı (Square) təmsil edən sinfi ehtiva edir.
-"""
-
-
 class Square:
-    """
-    Kvadrat sinfi.
-
-    Attributes:
-        __size (int): Kvadratın tərəfinin ölçüsü.
-    """
-
+    """A class that defines a square."""
+    
     def __init__(self, size):
-        """
-        Yeni bir Square obyekti yaradır.
-
+        """Initialize the square with a private size attribute.
+        
         Args:
-            size: Kvadratın ölçüsü (növ və dəyər yoxlanışı yoxdur).
+            size: The size of a side of the square.
         """
-        self.__size = size  
+        self.__size = size
